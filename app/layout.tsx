@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "FocusFlow - Smart Productivity Assistant",
   description: "Boost your productivity with Pomodoro sessions, real-time co-working, and AI insights.",
-    generator: 'v0.dev'
+    generator: 'Daksh Jain'
 }
 
 export default function RootLayout({
