@@ -1,0 +1,137 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  kindeId   String   @unique
+  email     String   @unique
+  name      String?
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  sessions         Session[]
+  roomMemberships  RoomMembership[]
+  leaderboardLogs  LeaderboardLog[]
+  distractionEvents DistractionEvent[]
+  dailyStats       DailyStats[]
+
+  @@map("users")
+}
+
+model Session {
+  id          String      @id @default(cuid())
+  userId      String
+  roomId      String?
+  type        SessionType @default(FOCUS)
+  duration    Int         // in minutes
+  status      SessionStatus @default(ACTIVE)
+  startedAt   DateTime    @default(now())
+  completedAt DateTime?
+  summary     String?     // AI-generated summary
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room Room? @relation(fields: [roomId], references: [id], onDelete: SetNull)
+
+  @@map("sessions")
+}
+
+model Room {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  isPublic    Boolean  @default(true)
+  maxMembers  Int      @default(10)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  memberships RoomMembership[]
+  sessions    Session[]
+
+  @@map("rooms")
+}
+
+model RoomMembership {
+  id       String @id @default(cuid())
+  userId   String
+  roomId   String
+  joinedAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roomId])
+  @@map("room_memberships")
+}
+
+model LeaderboardLog {
+  id        String   @id @default(cuid())
+  userId    String
+  points    Int
+  sessionId String?
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("leaderboard_logs")
+}
+
+model DistractionEvent {
+  id        String   @id @default(cuid())
+  userId    String
+  sessionId String?
+  timestamp DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("distraction_events")
+}
+
+model DailyStats {
+  id            String   @id @default(cuid())
+  userId        String
+  date          DateTime
+  focusMinutes  Int      @default(0)
+  sessionsCount Int      @default(0)
+  streakDays    Int      @default(0)
+  totalPoints   Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+  @@map("daily_stats")
+}
+
+enum SessionType {
+  FOCUS
+  SHORT_BREAK
+  LONG_BREAK
+}
+
+enum SessionStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  CANCELLED
+}
