@@ -27,13 +27,18 @@ export interface UserState {
   todayPoints: number
 }
 
+// Add to the UIState interface
 export interface UIState {
   theme: "light" | "dark" | "system"
   isTimerVisible: boolean
   isMobileNavOpen: boolean
   notifications: boolean
+  isChatbotOpen: boolean
+  isDeepWorkActive: boolean
+  isOracleOpen: boolean
 }
 
+// Add to the AppState interface
 interface AppState {
   // User state
   user: UserState
@@ -70,8 +75,23 @@ interface AppState {
   error: string | null
   setError: (error: string | null) => void
   clearError: () => void
+
+  // Oracle state
+  todayOracle: any | null
+  setTodayOracle: (oracle: any) => void
+
+  // Deep Work state
+  deepWorkQuote: string | null
+  setDeepWorkQuote: (quote: string) => void
+
+  // UI actions for new features
+  toggleChatbot: () => void
+  openDeepWork: () => void
+  closeDeepWork: () => void
+  toggleOracle: () => void
 }
 
+// Update the store implementation
 export const useAppStore = create<AppState>()(
   persist(
     subscribeWithSelector((set, get) => ({
@@ -172,12 +192,23 @@ export const useAppStore = create<AppState>()(
           room: { ...state.room, members },
         })),
 
-      // UI state
+      // Oracle state
+      todayOracle: null,
+      setTodayOracle: (oracle) => set({ todayOracle: oracle }),
+
+      // Deep Work state
+      deepWorkQuote: null,
+      setDeepWorkQuote: (quote) => set({ deepWorkQuote: quote }),
+
+      // UI state updates
       ui: {
         theme: "light",
         isTimerVisible: false,
         isMobileNavOpen: false,
         notifications: true,
+        isChatbotOpen: false,
+        isDeepWorkActive: false,
+        isOracleOpen: false,
       },
       setUI: (ui) => set((state) => ({ ui: { ...state.ui, ...ui } })),
 
@@ -199,6 +230,27 @@ export const useAppStore = create<AppState>()(
           ui: { ...state.ui, isMobileNavOpen: !state.ui.isMobileNavOpen },
         })),
 
+      // New UI actions
+      toggleChatbot: () =>
+        set((state) => ({
+          ui: { ...state.ui, isChatbotOpen: !state.ui.isChatbotOpen },
+        })),
+
+      openDeepWork: () =>
+        set((state) => ({
+          ui: { ...state.ui, isDeepWorkActive: true },
+        })),
+
+      closeDeepWork: () =>
+        set((state) => ({
+          ui: { ...state.ui, isDeepWorkActive: false },
+        })),
+
+      toggleOracle: () =>
+        set((state) => ({
+          ui: { ...state.ui, isOracleOpen: !state.ui.isOracleOpen },
+        })),
+
       // Leaderboard state
       leaderboard: [],
       setLeaderboard: (leaderboard) => set({ leaderboard }),
@@ -211,7 +263,10 @@ export const useAppStore = create<AppState>()(
     {
       name: "focusflow-storage",
       partialize: (state) => ({
-        ui: state.ui,
+        ui: {
+          theme: state.ui.theme,
+          notifications: state.ui.notifications,
+        },
         user: {
           id: state.user.id,
           name: state.user.name,

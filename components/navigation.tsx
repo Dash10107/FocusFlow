@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components"
-import { Timer, Users, Trophy, BarChart3, Settings, LogOut, Zap } from "lucide-react"
+import { Timer, Users, Trophy, BarChart3, Settings, LogOut, Zap, SnowflakeIcon as Crystal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { MobileNav } from "@/components/mobile-nav"
@@ -25,6 +25,7 @@ export function Navigation({ user }: NavigationProps) {
     { href: "/rooms", icon: Users, label: "Rooms" },
     { href: "/leaderboard", icon: Trophy, label: "Leaderboard" },
     { href: "/stats", icon: BarChart3, label: "Stats" },
+    { href: "/oracle", icon: Crystal, label: "Oracle" },
     { href: "/settings", icon: Settings, label: "Settings" },
   ]
 

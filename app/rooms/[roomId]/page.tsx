@@ -1,8 +1,10 @@
 import { Navigation } from "@/components/navigation"
 import { RoomDetail } from "@/components/room-detail"
+import { FocusChatbot } from "@/components/focus-chatbot"
 import { getAuthenticatedUser } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { redirect, notFound } from "next/navigation"
+import { ErrorBoundary } from "@/components/error-boundary"
 
 interface RoomPageProps {
   params: {
@@ -53,6 +55,11 @@ export default async function RoomPage({ params }: RoomPageProps) {
           isPublic={room.isPublic}
           userId={user.id}
         />
+
+        {/* Focus Assistant for room support */}
+        <ErrorBoundary>
+          <FocusChatbot userId={user.id} mode="floating" />
+        </ErrorBoundary>
       </main>
     </div>
   )

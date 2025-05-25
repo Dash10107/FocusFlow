@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components"
-import { Menu, Timer, Users, Trophy, BarChart3, Settings, LogOut, Zap } from "lucide-react"
+import { Menu, Timer, Users, Trophy, BarChart3, Settings, LogOut, Zap, SnowflakeIcon as Crystal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useAppStore } from "@/lib/store"
@@ -26,6 +26,7 @@ export function MobileNav({ user }: MobileNavProps) {
     { href: "/rooms", icon: Users, label: "Rooms" },
     { href: "/leaderboard", icon: Trophy, label: "Leaderboard" },
     { href: "/stats", icon: BarChart3, label: "Stats" },
+    { href: "/oracle", icon: Crystal, label: "Oracle" },
     { href: "/settings", icon: Settings, label: "Settings" },
   ]
 
