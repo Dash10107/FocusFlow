@@ -10,3 +10,4 @@
 2025-05-25T04:30:00.000Z - feat(leaderboard): use Redis Sorted Sets for ranking top users
 2025-05-26T05:30:00.000Z - feat(streak): add Redis Bitmap-based streak tracking
 2025-05-26T06:30:00.000Z - feat(deepwork): build immersive Deep Work Mode entry flow
+2025-05-26T07:30:00.000Z - feat(gemini): add retry logic for AI response timeout
