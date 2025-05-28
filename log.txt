@@ -15,3 +15,4 @@
 2025-05-27T05:30:00.000Z - refactor(ui): extract modal and card components
 2025-05-27T06:30:00.000Z - fix(api): add input validation with Zod on session routes
 2025-05-28T07:30:00.000Z - style(all): apply consistent Tailwind styles and spacing
+2025-05-28T04:30:00.000Z - feat(oracle): store insights and show 7-day Oracle log
