@@ -21,60 +21,6 @@ Today, FocusFlow has helped over **10,000 users** across **30+ countries** recla
 
 ---
 
-## ⚡ Getting Started
-
-Follow these steps to set up FocusFlow locally using **Next.js**, **Prisma**, and **Neon**.
-
-### 1. Clone & Install
-
-```bash
-git clone https://github.com/yourusername/focusflow.git
-cd focusflow
-npm install   # or yarn install
-```
-
-### 2. Environment Variables
-
-Create a `.env` file at the root of your project:
-
-```env
-# PostgreSQL (Neon)
-DATABASE_URL="postgresql://<username>:<password>@<host>:<port>/<database>?schema=public"
-
-# Next.js
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
-
-# Redis
-REDIS_URL="redis://localhost:6379"
-
-# Gemini AI
-GEMINI_API_KEY="<your-api-key>"
-```
-
-> 💡 Replace the placeholder values with your actual credentials.
-
-### 3. Prisma & Neon Setup
-
-```bash
-# Generate Prisma client
-npx prisma generate
-
-# Run migrations
-npx prisma migrate dev --name init
-```
-
-This configures your PostgreSQL schema in Neon and creates the Prisma client.
-
-### 4. Run the Development Server
-
-```bash
-npm run dev   # or yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to view the app.
-
----
-
 ## ✨ What Makes FocusFlow Unique
 
 - 🪄 **One-Tap Deep Work Mode**  
@@ -132,6 +78,61 @@ FocusFlow is designed to become part of your rhythm. That's why we're building f
 - Redis keys expire automatically to prevent memory leakage.
 
 ---
+
+## ⚡ Getting Started
+
+Follow these steps to set up FocusFlow locally using **Next.js**, **Prisma**, and **Neon**.
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/Dash10107/focusflow.git
+cd focusflow
+npm install   --legacy-peer-deps
+```
+
+### 2. Environment Variables
+
+Create a `.env` file at the root of your project:
+
+```env
+# PostgreSQL (Neon)
+DATABASE_URL="postgresql://<username>:<password>@<host>:<port>/<database>?schema=public"
+
+# Next.js
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+# Redis
+REDIS_URL="redis://localhost:6379"
+
+# Gemini AI
+GEMINI_API_KEY="<your-api-key>"
+```
+
+> 💡 Replace the placeholder values with your actual credentials.
+
+### 3. Prisma & Neon Setup
+
+```bash
+# Generate Prisma client
+npx prisma generate
+
+# Run migrations
+npx prisma migrate dev
+```
+
+This configures your PostgreSQL schema in Neon and creates the Prisma client.
+
+### 4. Run the Development Server
+
+```bash
+npm run dev  
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the app.
+
+---
+
 
 ## 🙏 Final Words
 
