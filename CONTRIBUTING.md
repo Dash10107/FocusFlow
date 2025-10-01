@@ -1,87 +1,111 @@
-# Contributing to Zinima (zine-scroll-storytelling-platform)
+# Contributing to FocusFlow
 
-Thank you for your interest in improving Zinima! We welcome contributions during Hacktoberfest and beyond.
+Thank you for your interest in contributing to FocusFlow! We welcome contributions during Hacktoberfest and beyond.
 
 ## Before You Begin
 
 1. **Read the Code of Conduct** in [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
-2. **Look for issues** labeled `good first issue`, `help wanted`, or `hacktoberfest`.
-3. For large changes, **open an issue first** to discuss scope and approach.
+2. **Review existing issues** labeled `good first issue`, `help wanted`, or `hacktoberfest`.
+3. For major enhancements, **open an issue first** to discuss scope.
 
 ## Tech Stack
 
-- Next.js 14 (App Router) & TypeScript  
-- Framer Motion & GSAP ScrollTrigger  
+- Next.js (React, App Router) & TypeScript  
+- Prisma & PostgreSQL (Neon)  
+- Redis Pub/Sub & TTL  
+- Gemini AI integration  
+- Zustand (state management)  
 - Tailwind CSS  
-- Optional: Three.js (react-three-fiber)
+- Framer Motion (optional)  
+- Vercel deployment (observability via Sentry, Logtail)
 
 ## Local Setup
 
 ```bash
-# Fork the repo and clone your fork
-git clone https://github.com/your-username/zine-scroll-storytelling-platform.git
-cd zine-scroll-storytelling-platform
+# Fork and clone FocusFlow
+git clone https://github.com/your-username/FocusFlow.git
+cd FocusFlow
 
 # Install dependencies
-npm install --legacy-peer-deps
-
-# Start development server
-npm run dev
-
-# Visit http://localhost:3000
+yarn install # or npm install --legacy-peer-deps
 ```
+
+### Environment Variables
+
+Copy `.env.example` to `.env` and update:
+```
+DATABASE_URL="postgresql://USER:PASS@HOST:PORT/dbname?schema=public"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+REDIS_URL="redis://localhost:6379"
+GEMINI_API_KEY="your-gemini-key"
+```
+
+### Prisma Setup
+
+```bash
+npx prisma generate    # generate client
+npx prisma migrate dev # apply migrations
+```
+
+### Start Dev Server
+
+```bash
+npm run dev # or yarn dev
+```
+
+Open http://localhost:3000 in your browser.
 
 ## Branching & Workflow
 
-- Create branches from `main`:
+- Branch off `main`:  
   ```bash
-  git checkout -b feat/your-short-description
-  ```
-- Keep PRs **small**, **focused**, and **atomic**.
-- Rebase or merge latest `main` before your PR.
+git checkout -b feat/short-description
+git push --set-upstream origin feat/short-description
+```
+- Keep PRs **focused** and **atomic**.
+- Rebase or merge the latest `main` before opening a PR.
 
 ## Coding Standards
 
-- **Type safety**: Use strict TypeScript types where practical.  
-- **Lint & type-check** before committing:
+- **TypeScript**: Strict types where practical.
+- **Lint & Type-check**:  
   ```bash
-  npm run lint
-  npm run type-check
-  ```
-- **Accessibility**: Ensure keyboard navigation, ARIA attributes, and color contrast.
-- **Performance**: Favor transforms/opacity, avoid layout thrash; test with Lighthouse.
+npm run lint
+npm run type-check
+```
+- **Performance**: Minimize bundle size, optimize Redis/DB queries, maintain <200ms latency.
+- **Accessibility**: ARIA labels, keyboard navigation, color contrast.
 
 ## Commit Messages
 
-Follow **Conventional Commits**:
-
-- `feat:` a new feature  
-- `fix:` a bug fix  
-- `docs:` documentation changes  
-- `chore:` build/process changes  
+Follow Conventional Commits:
+- `feat:` new feature
+- `fix:` bug fix
+- `docs:` documentation
+- `chore:` tooling/config changes
 
 Example:
-```
-feat: add minimal narrative zine template
+```text
+feat: add co-working room presence indicator
 ```
 
-## Pull Request Guidelines
+## Pull Requests
 
-1. **Link related issue** (e.g., “Closes #12”).
-2. **Describe changes** and rationale.
-3. **Include screenshots/GIFs** for UI updates.
-4. **Outline testing steps** and edge cases covered.
+1. Link related issue (e.g., “Closes #5”).
+2. Summarize changes and motivation.
+3. Include screenshots or GIFs for UI work.
+4. Outline test steps and edge cases.
 5. Confirm:
    - Lint passes (`npm run lint`)
    - Type-check passes (`npm run type-check`)
-   - No console errors
+   - No errors in console
 
-## Hacktoberfest Notes
+## Hacktoberfest Guidelines
 
-- Issues labeled **`hacktoberfest`**, **`good first issue`**, or **`help wanted`** are welcome.  
-- Valid contributions may be merged, approved, or labeled **`hacktoberfest-accepted`**.  
-- Spam or low-effort PRs will be closed with **`spam`** or **`invalid`** labels.
+- Look for issues labeled **`hacktoberfest`**, **`good first issue`**, or **`help wanted`**.
+- Valid contributions may be merged, approved, or labeled **`hacktoberfest-accepted`**.
+- Spam or trivial PRs will be closed with **`spam`** or **`invalid`** labels.
 
 ## License
 
-By contributing, you agree your work will be licensed under the MIT License.
+By contributing, you agree your changes will be licensed under the project’s MIT License.
